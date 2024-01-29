@@ -87,11 +87,11 @@ function RepairQueue() {
               </td>
               <td className="w-full lg:w-auto p-3 backdrop-blur bg-Secondary/30  text-Text lg:text-center md:text-left block lg:table-cell relative lg:static lg:rounded-r-xl">
                 <span className="lg:hidden absolute top-0 left-0 backdrop-blur bg-Secondary/30 rounded-xl text-Text px-2 py-1 text-xs font-bold uppercase">
-                  รับเรื่อง
+                  สถานะรับเรื่อง
                 </span>
 
                 <p className="px-4 py-2">
-                  {row.Status === 0 ? "รับเรื่องแล้ว" : "ยังไม่ได้รับเรื่อง"}
+                  {row.Status}
                 </p>
               </td>
             </tr>

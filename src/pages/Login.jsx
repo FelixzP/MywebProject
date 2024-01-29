@@ -8,8 +8,8 @@ function Login() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    Username: '',
-    Password: '',
+    username: '',
+    password: '',
   });
 
   const handleChange = (e) => {
@@ -23,12 +23,12 @@ function Login() {
     e.preventDefault();
     try {
       const response = await axios.post('https://api.peeranat.online/login', {
-        username: form.Username,
-        password: form.Password,
+        username: form.username,
+        password: form.password,
 
       });
       const token = response.data.token;
-
+      localStorage.setItem('token', token);
       console.log('Login successful. Token:', token); // แสดง role ที่ได้รับ  
 
       navigate('/AdminDashBoard'); // ส่งไปยังหน้า admin
@@ -49,19 +49,19 @@ function Login() {
               <label className="flex flex-col">
                 <span className="text-Text">ชื่อผู้ใช้</span>
                 <input
-                  name="Username"
+                  name="username"
                   onChange={handleChange}
-                  placeholder="Username"
+                  placeholder="username"
                   className="max-w-full p-2 border border-gray-300 rounded items-center"
                 />
               </label>
               <label className="flex flex-col">
                 <span className="text-Text">รหัสผ่าน</span>
                 <input
-                  name="Password"
+                  name="password"
                   type="password"
                   onChange={handleChange}
-                  placeholder="Password"
+                  placeholder="password"
                   className="max-w-full p-2 border border-gray-300 rounded items-center"
                 />
               </label>
@@ -69,7 +69,7 @@ function Login() {
                 type="submit"
                 className="flex justify-center w-11/12 py-2 px-4 mx-auto rounded-xl bg-Primary text-Text hover:bg-Secondary background-animate"
               >
-                ส่งข้อมูล
+                ล็อกอิน
               </button>
               <div className="text-center text-Text">
                 &copy;{currentYear} htc.ac.th. All rights reserved.

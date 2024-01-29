@@ -1,17 +1,15 @@
 import React from 'react'
-import Header from '../components/Header'
+import HeaderAdmin from '../components/HeaderAdmin'
 import DashBoard from '../components/bodyDashBoard'
 
 
 import { useNavigate } from 'react-router-dom';
 
 function AdminDashBoard() {
-    const navigate = useNavigate();
-
 
   return (
     <>
-    <Header></Header>
+    <HeaderAdmin/>
     <DashBoard></DashBoard>
     </>
   )

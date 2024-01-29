@@ -5,7 +5,6 @@ import Login from './pages/Login'
 import Detail from './pages/Detail'
 import RepairForm from './pages/repairForm'
 import AdminDashBoard from './pages/adminDashBoard'
-import UserDashBoard from './pages/UserDashBoard'
 import './App.css'
 
 const App = () => {

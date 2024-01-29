@@ -2,6 +2,7 @@ import React from "react";
 import Technic from "../assets/htclogo75.png";
 import { useNavigate } from "react-router-dom";
 
+
 function Header() {
   const navigate = useNavigate();
 
@@ -13,6 +14,7 @@ function Header() {
       console.error(error);
     }
   };
+  
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     try {
@@ -26,7 +28,7 @@ function Header() {
       <nav className="border-black border-b-2 shadow-lg bg-ourwhite text-ourtext text-Text">
         <div className="md:flex items-center justify-between py-0 px-8 md:px-3  ">
           <div className="flex justify-between items-center">
-            <img src={Technic} alt="htclogo"></img>
+            <img src={Technic} alt="htclogo" className="md:ml-0"></img>
             <p className="lg:text-3xl font-bold">
               ระบบแจ้งซ่อม IT Support วิทยาลัยเทคนิคหาดใหญ่
             </p>
@@ -42,6 +44,7 @@ function Header() {
                   />
                   <path d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z" />
                 </svg>
+                
               </button>
             </div>
           </div>
@@ -58,6 +61,7 @@ function Header() {
             >
               Login
             </button>
+            
           </div>
         </div>
       </nav>

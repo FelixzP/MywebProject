@@ -1,13 +1,51 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import _ from "lodash"; // นำเข้า lodash
+import _, { values } from "lodash"; // นำเข้า lodash
+import Modal from "react-modal";
 
-
+import { jwtDecode } from "jwt-decode";
 function AdminDB() {
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(0); // สถานะสำหรับการจัดการหน้าที่แสดงอยู่
+  const [page, setPage] = useState(0);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  const rowsPerPage = 10; // จำนวนแถวต่อหน้า
+  // ดึงข้อมูลผู้แก้ไขจาก Local Storage
+  const Token = localStorage.getItem("token");
+  const admin = jwtDecode(Token);
+
+  const [form, setForm] = useState({
+    Status: "",
+    Admin: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.patch(
+        `https://api.peeranat.online/api/updateStatus/${selectedRow.ID}`, // ปรับ URL ตาม API ของคุณ
+        form
+      );
+
+      await axios.post("https://api.peeranat.online/api/supportForms", {
+        Admin: admin.username,
+      });
+      console.log(response.data);
+      handleEditModalClose();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const rowsPerPage = 5; // จำนวนแถวต่อหน้า
 
   useEffect(() => {
     axios
@@ -20,6 +58,24 @@ function AdminDB() {
         console.error("Error fetching data: ", error);
       });
   }, []);
+
+  const handleEditClick = (row) => {
+    setSelectedRow(row);
+    setIsEditModalOpen(true);
+  };
+
+  const handleEditModalClose = () => {
+    setSelectedRow(null);
+    setIsEditModalOpen(false);
+  };
+
+  const handleUpdateData = () => {
+    // ทำการอัปเดตข้อมูลในรายการหลักของคุณ
+    // ...
+
+    // ปิด modal
+    handleEditModalClose();
+  };
 
   return (
     <>
@@ -42,9 +98,10 @@ function AdminDB() {
             <th className="px-4 py-2 hidden lg:table-cell backdrop-blur bg-Secondary/30  text-Text lg:text-center ">
               ปัญหาการใช้งาน
             </th>
-            <th className="px-4 py-2 hidden lg:table-cell backdrop-blur bg-Secondary/30  text-Text lg:text-center rounded-r-xl">
+            <th className="px-4 py-2 hidden lg:table-cell backdrop-blur bg-Secondary/30  text-Text lg:text-center">
               รับเรื่อง
             </th>
+            <th className="px-4 py-2 hidden lg:table-cell backdrop-blur bg-Secondary/30  text-Text lg:text-center rounded-r-xl"></th>
           </tr>
           {data[page]?.map((row) => (
             <tr
@@ -86,19 +143,70 @@ function AdminDB() {
 
                 <p className="px-4 py-2">{row.Issue}</p>
               </td>
-              <td className="w-full lg:w-auto p-3 backdrop-blur bg-Secondary/30  text-Text lg:text-center md:text-left block lg:table-cell relative lg:static lg:rounded-r-xl">
+              <td className="w-full lg:w-auto p-3 backdrop-blur bg-Secondary/30  text-Text lg:text-center md:text-left block lg:table-cell relative lg:static">
                 <span className="lg:hidden absolute top-0 left-0 backdrop-blur bg-Secondary/30 rounded-xl text-Text px-2 py-1 text-xs font-bold uppercase">
                   รับเรื่อง
                 </span>
+                <p className="px-4 py-2">{row.Status}</p>
+              </td>
 
-                <p className="px-4 py-2">
-                  {row.Status === 0 ? "รับเรื่องแล้ว" : "ยังไม่ได้รับเรื่อง"}
-                </p>
+              <td className="w-full lg:w-auto p-3 backdrop-blur bg-Secondary/30  text-Text lg:text-center md:text-left block lg:table-cell relative lg:static lg:rounded-r-xl">
+                <button
+                  onClick={() => handleEditClick(row)}
+                  className="px-4 py-2 bg-Primary text-white rounded-md"
+                >
+                  แก้ไข
+                </button>
               </td>
             </tr>
           ))}
         </thead>
       </table>
+      <Modal
+        isOpen={isEditModalOpen}
+        onRequestClose={handleEditModalClose}
+        contentLabel="Edit Queue Modal"
+        className="modal-content"
+        overlayClassName="modal-overlay"
+      >
+        <span className="close" onClick={handleEditModalClose}>
+          &times;
+        </span>
+        <h2>รายงานผู้แจ้ง</h2>
+        {selectedRow && (
+          <>
+            <div className="space-y-reverse space-y-1">
+            <p className="gap-2">ID: {selectedRow.ID}</p>
+            <p>ชื่อผู้แจ้ง: {selectedRow.Name}</p>
+            <p>ประเภทงาน: {selectedRow.JobType}</p>
+            <p>แผนก/แผนงาน: {selectedRow.Department}</p>
+            <p>เบอร์โทร: {selectedRow.ContactNumber}</p>
+            <p>ปัญหา: {selectedRow.Issue}</p>
+            <p>ที่อยู่ของอุปกรณ์ที่เกิดปัญหา: {selectedRow.Location}</p>
+            <p>รายละเอียดอื่นเพิ่มเติม: {selectedRow.Note}</p>
+            <p className="space-y-reverse space-y-4">สถานะการดำเนินงาน: {selectedRow.Status}</p>
+            </div>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5 ">
+            <label className="block">
+            <span className="flex flex-col text-gray-700 ">แก้ไขสถานะ:</span>
+          <select
+            name="Status"
+            onChange={handleChange}
+            className="mt-1 block w-full rounded-md border-gray-600  shadow-sm"
+            required
+          >
+            <option value="กำลังดำเนินการติดตาม">กำลังดำเนินการติดตาม</option>
+            <option value="เสร็จสิ้น">เสร็จสิ้น</option>
+
+          </select>
+        </label> 
+              <button onClick={handleSubmit} className="bg-Background ">
+                บันทึกการแก้ไข
+              </button>
+            </form>
+          </>
+        )}
+      </Modal>
       <button onClick={() => setPage(page - 1)} disabled={page === 0}>
         Previous
       </button>{" "}

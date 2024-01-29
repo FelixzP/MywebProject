@@ -1,11 +1,22 @@
 import React from "react";
 import AdminDB from "../components/bodyAdmin";
 import UserAdmin from "./bodyListAdmin";
+import {
+  Navbar,
+  MobileNav,
+  Typography,
+  Button,
+  IconButton,
+  Card,
+} from "@material-tailwind/react";
 
 function DashBoard() {
+
+  
+
   return (
     <>
-      <div className="flex flex-col h-screen bg-gray-100">
+      <div className="flex flex-col h-auto bg-gray-100">
         <div className="flex-1 p-4 w-full :w-1/2">
           <div className="relative max-w-md w-full">
             <div className="absolute top-1 left-2 inline-flex items-center p-2">
@@ -27,9 +38,7 @@ function DashBoard() {
 
               <div className="text-right mt-4">
                 <div className="text-right mt-4">
-                  <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded">
-                    แก้ไข
-                  </button>
+
                 </div>
               </div>
             </div>
@@ -42,7 +51,6 @@ function DashBoard() {
             <div className="my-1"></div>
             <div className="bg-gradient-to-r from-Secondary via-LoginC  h-px mb-6"></div>
             <UserAdmin></UserAdmin>
-
             <div className="text-right mt-4">
                 <div className="text-right mt-4">
                   <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded">
