@@ -1,8 +1,7 @@
-# React + Vite
+# React + Vite For HTC ITSUPPORT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+IT support Project 2566
 
-Currently, two official plugins are available:
-
+Use React + Vite + Go + Gorm + Go Fiber
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
