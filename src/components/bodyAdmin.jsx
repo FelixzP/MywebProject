@@ -16,13 +16,12 @@ function AdminDB() {
 
   const [form, setForm] = useState({
     Status: "",
-    Admin: "",
+    Admin: ""
   });
 
   const handleChange = (e) => {
     setForm({
       ...form,
-
       [e.target.name]: e.target.value,
     });
   };
@@ -202,9 +201,9 @@ function AdminDB() {
             className="mt-1 block w-full rounded-md border-gray-600  shadow-sm"
             required
           >
+            <option value="">เลือกสถานะ</option>
             <option value="กำลังดำเนินการติดตาม">กำลังดำเนินการติดตาม</option>
             <option value="เสร็จสิ้น">เสร็จสิ้น</option>
-
           </select>
         </label> 
               <button onClick={handleSubmit} className="bg-Background ">

@@ -125,7 +125,6 @@ function RepairQueue() {
                 <span className=" lg:hidden absolute top-0 left-0 backdrop-blur bg-Secondary/30 rounded-xl text-Text px-2 py-1 text-xs font-bold uppercase">
                   สถานะรับเรื่อง
                 </span>
-
                 <p
                   className={`px-4 py-2 ${
                     row.OtherStatus
