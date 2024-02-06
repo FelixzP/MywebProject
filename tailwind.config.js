@@ -17,6 +17,7 @@ module.exports = withMT({
       'LoginF': '#F59356',
       'CenterC': '#DA808C',
       'LoginS': '#A65AF2',
+      'Wait': '#DAA520',
     },
     },
   },

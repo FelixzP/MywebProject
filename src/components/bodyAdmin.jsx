@@ -34,10 +34,6 @@ function AdminDB() {
         `https://api.peeranat.online/api/updateStatus/${selectedRow.ID}`, // ปรับ URL ตาม API ของคุณ
         form
       );
-
-      await axios.post("https://api.peeranat.online/api/supportForms", {
-        Admin: admin.username,
-      });
       console.log(response.data);
       handleEditModalClose();
     } catch (error) {
@@ -70,10 +66,7 @@ function AdminDB() {
   };
 
   const handleUpdateData = () => {
-    // ทำการอัปเดตข้อมูลในรายการหลักของคุณ
-    // ...
-
-    // ปิด modal
+    
     handleEditModalClose();
   };
 
@@ -137,17 +130,31 @@ function AdminDB() {
                 <p className="px-4 py-2">{row.Department}</p>
               </td>
               <td className="w-full lg:w-auto p-3 backdrop-blur bg-Secondary/30  text-Text lg:text-center md:text-left block lg:table-cell relative lg:static">
-                <span className="lg:hidden absolute top-0 left-0 backdrop-blur bg-Secondary/30 rounded-xl text-Text px-2 py-1 text-xs font-bold uppercase">
+                <span className="lg:hidden absolute top-0 left-0 backdrop-blur  bg-Secondary/30 rounded-xl text-Text px-2 py-1 text-xs font-bold uppercase">
                   ปัญหาการใช้งาน
                 </span>
 
-                <p className="px-4 py-2">{row.Issue}</p>
+                <p className="px-4 py-2 truncate">{row.Issue}</p>
               </td>
               <td className="w-full lg:w-auto p-3 backdrop-blur bg-Secondary/30  text-Text lg:text-center md:text-left block lg:table-cell relative lg:static">
                 <span className="lg:hidden absolute top-0 left-0 backdrop-blur bg-Secondary/30 rounded-xl text-Text px-2 py-1 text-xs font-bold uppercase">
                   รับเรื่อง
                 </span>
-                <p className="px-4 py-2">{row.Status}</p>
+                <p
+                  className={`px-4 py-2 ${
+                    row.OtherStatus
+                      ? "text-Accent"
+                      : row.Status === "กำลังดำเนินการติดตาม"
+                      ? "text-Text bg-Wait rounded-xl"
+                      : row.Status === "ยังไม่ได้รับเรื่อง"
+                      ? "text-Text bg-red-500 rounded-xl"
+                      : row.Status === "เสร็จสิ้น"
+                      ? "text-Text bg-green-500 rounded-xl"
+                      : "text-black"
+                  }`}
+                >
+                  {row.Status}
+                </p>
               </td>
 
               <td className="w-full lg:w-auto p-3 backdrop-blur bg-Secondary/30  text-Text lg:text-center md:text-left block lg:table-cell relative lg:static lg:rounded-r-xl">

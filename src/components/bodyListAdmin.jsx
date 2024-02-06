@@ -14,14 +14,12 @@ function UserAdmin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      
       const response = await axios.patch(
-        `https://api.peeranat.online/api/updateStatus/${selectedRow.ID}`, // ปรับ URL ตาม API ของคุณ
+        `https://api.peeranat.online/api/updatePassword/${selectedRow.ID}`, // ปรับ URL ตาม API ของคุณ
         form
       );
 
-      await axios.post("https://api.peeranat.online/api/supportForms", {
-        Admin: admin.username,
-      });
       console.log(response.data);
       handleEditModalClose();
     } catch (error) {
@@ -30,14 +28,14 @@ function UserAdmin() {
   };
 
   const [form, setForm] = useState({
-    Status: "",
-    Admin: "",
+    Username:"",
+    Password: "",
   });
+
 
   const handleChange = (e) => {
     setForm({
       ...form,
-
       [e.target.name]: e.target.value,
     });
   };
@@ -135,36 +133,34 @@ function UserAdmin() {
           &times;
         </span>
         <h1>แก้ไขรหัสผ่าน</h1>
+        
         {selectedRow && (
           <>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5 ">
             <div className="space-y-reverse space-y-1">
               <p className="gap-2">ID: {selectedRow.ID}</p>
               <label className="block">
                 <span className="text-gray-700 ">ชื่อผู้ใช้:</span>
                 <input
-                  name="name"
+                  name="Username"
                   onChange={handleChange}
-                  placeholder="ชื่อผู้ใช้"
-                  value={selectedRow.Username}
+                  placeholder={selectedRow.Username}
                   className="w-full p-2 border border-gray-300 rounded"
-                  required
                 />
               </label>
               <label className="block">
-                <span className="text-gray-700 ">ชื่อผู้ใช้:</span>
+                <span className="text-gray-700 ">รหัสผ่าน:</span>
                 <input
-                  name="name"
+                  name="Password"
+                  placeholder={selectedRow.Password}
                   onChange={handleChange}
-                  placeholder="ชื่อผู้ใช้"
-                  value={selectedRow.Password}
                   className="w-full p-2 border border-gray-300 rounded"
                   required
                 />
               </label>
             </div>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5 ">
+            
               <label className="block">
-                <span className="flex flex-col text-gray-700 ">แก้ไข:</span>
               </label>
               <button onClick={handleSubmit} className="bg-Background ">
                 บันทึกการแก้ไข

@@ -77,7 +77,7 @@ function HeaderAdmin() {
   const username = jwtDecode(token);
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6">
+    <Navbar className="mx-auto max-w-full p-2 pl-2 rounded-full lg:pl-6">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
         <img src={Technic} alt="htclogo" />
         <Typography
@@ -88,7 +88,6 @@ function HeaderAdmin() {
           วิทยาลัยเทคนิคหาดใหญ่
         </Typography>
 
-        {/* Display the username in the Navbar */}
         <Typography className="mr-2 ml-auto cursor-pointer py-1.5 font-medium ">
           {username && `Welcome, ${username.username}!`}
         </Typography>

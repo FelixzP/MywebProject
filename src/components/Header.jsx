@@ -1,11 +1,26 @@
 import React from "react";
 import Technic from "../assets/htclogo75.png";
 import { useNavigate } from "react-router-dom";
+import {
+  Navbar,
+  navList,
 
+  Typography,
+  Button,
+  IconButton,
+  Collapse,
+} from "@material-tailwind/react";
 
 function Header() {
   const navigate = useNavigate();
 
+  const [openNav, setOpenNav] = React.useState(false);
+  React.useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setOpenNav(false)
+    );
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -14,7 +29,7 @@ function Header() {
       console.error(error);
     }
   };
-  
+
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     try {
@@ -32,36 +47,72 @@ function Header() {
             <p className="lg:text-3xl font-bold">
               ระบบแจ้งซ่อม IT Support วิทยาลัยเทคนิคหาดใหญ่
             </p>
-            <div className="md:hidden">
-              <button
-                type="button"
-                className="block text-gray-800 hover:text-gray-700 focus:text-gray-700 focus:outline-none"
+            <ul className="mt-2 mb-4 flexflex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+              <IconButton
+                variant="text"
+                className="flex flex-col ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent md:hidden"
+                ripple={false}
+                onClick={() => setOpenNav(!openNav)}
               >
-                <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
-                  <path
-                    className="hidden"
-                    d="M16.24 14.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 0 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12l2.83 2.83z"
-                  />
-                  <path d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z" />
-                </svg>
-                
-              </button>
-            </div>
+                {openNav ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    className="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </svg>
+                )}
+              </IconButton>
+              <Collapse open={openNav}>
+                <div className="container mx-auto">
+                  {navList}
+                  <div className="flex items-center gap-x-1">
+                    <Button fullWidth variant="text" size="sm" onClick={handleSubmit} className="bg-gradient-to-r from-Secondary to-Accent hover:bg-Primary font-bold py-2 px-4 rounded">
+                      <span className="text-Background">แจ้งปัญหา</span>
+                    </Button>
+                    <Button fullWidth variant="gradient" size="sm" onClick={handleSubmitLogin} className="hover:text-white hover:bg-gradient-to-br from-Secondary via-CenterC to-Accent font-bold py-2 px-4 rounded">
+                      <span>Login</span>
+                    </Button>
+                  </div>
+                </div>
+              </Collapse>
+            </ul>
           </div>
           <div className="flex flex-col md:flex-row hidden md:block mx-2">
             <button
               onClick={handleSubmit}
-              className=" hover:bg-Primary font-bold py-2 px-4 rounded "
+              className=" hover:bg-Primary bg-Secondary font-bold py-2 px-4 rounded "
             >
               แจ้งปัญหาการใช้งาน
             </button>
             <button
               onClick={handleSubmitLogin}
-              className=" hover:text-white hover:bg-gradient-to-br from-Secondary via-CenterC to-Accent font-bold py-2 px-4 rounded "
+              className=" hover:text-white bg-Secondary ml-1 hover:bg-gradient-to-br from-Secondary via-CenterC to-Accent font-bold py-2 px-4 rounded "
             >
               Login
             </button>
-            
           </div>
         </div>
       </nav>

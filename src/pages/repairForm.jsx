@@ -23,6 +23,13 @@ const RepairForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    form.name === "" && alert("กรุณากรอกชื่อผู้แจ้ง");
+    form.jobType === "" && alert("กรุณาเลือกประเภทงาน");
+    form.location === "" && alert("กรุณากรอกสถานที่ในการแจ้งซ่อม");
+    form.department === "" && alert("กรุณาเลือกฝ่ายงานหรือภาควิชาของผู้แจ้งปัญหา");
+    form.issue === "" && alert("กรุณากรอกปัญหาการใช้งาน");
+    form.contactNumber === "" && alert("กรุณากรอกเบอร์ติดต่อกลับของผู้แจ้งปัญหา");
+    if (form.name !== "" && form.jobType !== "" && form.location !== "" && form.department !== "" && form.issue !== "" && form.contactNumber !== "") {
     try {
       const response = await axios.post(
         "https://api.peeranat.online/api/supportForms",
@@ -33,6 +40,7 @@ const RepairForm = () => {
     } catch (error) {
       console.error(error);
     }
+  }
   };
 
   return (
@@ -54,7 +62,7 @@ const RepairForm = () => {
         <label className="block">
           <span className="text-gray-700 ">ประเภทงาน:</span>
           <select
-            name="JobType"
+            name="jobType"
             onChange={handleChange}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
             required
@@ -86,7 +94,7 @@ const RepairForm = () => {
         <label className="block">
           <span className="text-gray-700">3.ฝ่ายงานของผู้แจ้งปัญหา(เฉพาะฝ่ายงาน ถ้าเป็นภาควิชาให้เว้น แล้วตอบข้อถัดไป) :</span>
           <select
-            name="Department"
+            name="department"
             onChange={handleChange}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
           >
@@ -144,7 +152,7 @@ const RepairForm = () => {
         <label className="block">
           <span className="text-gray-700">4.ภาควิชาของผู้แจ้งปัญหา:</span>
           <select
-            name="Department"
+            name="department"
             onChange={handleChange}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
           >
