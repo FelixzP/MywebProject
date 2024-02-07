@@ -22,11 +22,10 @@ function DashQuerry() {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
 
   useEffect(() => {
-    // เรียกใช้งาน fetchData() เมื่อ selectedMonth, startDate, หรือ endDate เปลี่ยนแปลง
+    
     const { firstDayOfMonth, lastDayOfMonth } =
       calculateMonthRange(selectedMonth);
 
-    // ทำอย่างอื่นตามต้องการ, เช่น อัพเดท state
     fetchData(firstDayOfMonth, lastDayOfMonth);
   }, [selectedMonth]);
 
