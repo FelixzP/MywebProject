@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import _ from "lodash"; // นำเข้า lodash
+import _ from "lodash"; 
 import {
   Menu,
   MenuHandler,
@@ -11,7 +11,7 @@ import {
 
 function RepairQueue() {
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(0); // สถานะสำหรับการจัดการหน้าที่แสดงอยู่
+  const [page, setPage] = useState(0);
 
   const rowsPerPage = 7; // จำนวนแถวต่อหน้า
 
