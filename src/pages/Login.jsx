@@ -33,7 +33,7 @@ function Login() {
 
       navigate('/AdminDashBoard'); // ส่งไปยังหน้า admin
     } catch (error) {
-      console.error('Login failed', error);
+      alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
     }
   };
   
