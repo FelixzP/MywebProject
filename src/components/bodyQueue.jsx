@@ -55,7 +55,7 @@ function RepairQueue() {
               ปัญหาการใช้งาน
             </th>
             <th className="px-4 py-2 hidden lg:table-cell backdrop-blur bg-Primary/75   text-Text lg:text-center rounded-r-xl">
-              รับเรื่อง
+              สถานะการดำเนินการ
             </th>
           </tr>
           {data[page]?.map((row) => (
