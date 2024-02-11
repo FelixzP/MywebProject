@@ -232,6 +232,15 @@ function DashQuerry() {
   };
   const casesByDepartment = getCasesByDepartment();
 
+  const handleYearlyDataFetch = () => {
+    const currentYear = new Date().getFullYear();
+    const firstDayOfYear = new Date(currentYear, 0, 1);
+    const lastDayOfYear = new Date(currentYear, 11, 31);
+    
+    fetchData(firstDayOfYear, lastDayOfYear);
+  };
+  
+
   const handleMonthClick = (month) => {
   const currentDate = new Date();
   const selectedYear = currentDate.getFullYear();
@@ -275,6 +284,7 @@ function DashQuerry() {
               <Button className="bg-Secondary">เดือนที่กำหนด</Button>
             </MenuHandler>
             <MenuList>
+            <MenuItem onClick={handleYearlyDataFetch}>ทั้งหมด</MenuItem> 
               {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((month) => (
                 <MenuItem key={month} onClick={() => handleMonthClick(month)}>
                   {monthNames[month]}
