@@ -42,7 +42,7 @@ function Login() {
   return (
     <>
       <div className="flex flex-col item-center justify-center h-screen bg-gradient-to-r from-LoginF via-LoginC to-LoginS background-animate">
-        <div className="backdrop-blur-xl rounded-2xl items-center justify-center sm:w-auto md:w-2/4 lg:w- xl:w-1/4 2xl:w-1/4 mx-auto">
+        <div className="backdrop-blur-xl rounded-2xl items-center justify-center w-11/12 md:w-2/4 lg:w-2/4 xl:w-2/4 2xl:w-4/12 mx-auto">
           <div className="relative">
             <form onSubmit={handleSubmit} className="p-5 relative z-20 space-y-6">
               <h1 className="text-center text-3xl font-bold text-Text">LOGIN</h1>
