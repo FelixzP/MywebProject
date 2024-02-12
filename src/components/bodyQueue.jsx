@@ -146,14 +146,14 @@ function RepairQueue() {
         </thead>
       </table>
       <button onClick={() => setPage(page - 1)} disabled={page === 0}>
-        Previous
+        Next
       </button>{" "}
       {/* ปุ่ม "Previous" */}
       <button
         onClick={() => setPage(page + 1)}
         disabled={page === data.length - 1}
       >
-        Next
+        Previous
       </button>{" "}
       {/* ปุ่ม "Next" */}
     </>

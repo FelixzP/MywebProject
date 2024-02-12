@@ -233,7 +233,7 @@ function AdminDB() {
           </>
         )}
       </Modal>
-       <DashQuerry fetchData={fetchData}/>
+
       <button onClick={() => setPage(page - 1)} disabled={page === 0}>
         Next
       </button>{" "}
