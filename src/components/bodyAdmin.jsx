@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import _, { values } from "lodash"; // นำเข้า lodash
 import Modal from "react-modal";
-
+import DashQuerry from "./DashQuerry";
 import { jwtDecode } from "jwt-decode";
 function AdminDB() {
   const [data, setData] = useState([]);
@@ -35,11 +35,31 @@ function AdminDB() {
       );
       console.log(response.data);
       handleEditModalClose();
+
+      fetchData();
+     
     } catch (error) {
       console.error(error);
     }
   };
+  
+  useEffect(() => {
+  fetchData();
+}, []);
 
+  
+  const fetchData = () => {
+    axios
+      .get("https://api.peeranat.online/api/supportForms")
+      .then((response) => {
+        console.log(response);
+        setData(_.chunk(response.data, rowsPerPage));
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
+  };
+  
   const rowsPerPage = 5; // จำนวนแถวต่อหน้า
 
   useEffect(() => {
@@ -213,15 +233,16 @@ function AdminDB() {
           </>
         )}
       </Modal>
+       <DashQuerry fetchData={fetchData}/>
       <button onClick={() => setPage(page - 1)} disabled={page === 0}>
-        Previous
+        Next
       </button>{" "}
       {/* ปุ่ม "Previous" */}
       <button
         onClick={() => setPage(page + 1)}
         disabled={page === data.length - 1}
       >
-        Next
+        Previous 
       </button>{" "}
       {/* ปุ่ม "Next" */}
     </>
